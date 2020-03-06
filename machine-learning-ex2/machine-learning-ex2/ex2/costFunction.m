@@ -22,10 +22,12 @@ grad = zeros(size(theta));
 
 total_cost = 0;
 for i = 1:m
-	total_cost = total_cost + (-y(i,1) * log(sigmoid(transpose(theta) .* X(i,:))) - (1 - y(i,1)) * log(1 - sigmoid(transpose(theta) .* X(i,:))) );
+	part_1 = log(sigmoid(dot(transpose(theta) , X(i,:))));
+	part_2 = log(1 - sigmoid(dot(transpose(theta) , X(i,:))));
+	total_cost = total_cost + (-y(i,1) * part_1 - (1 - y(i,1)) * part_2 );
 endfor
 
-J = 1/m * total_cost;
+J = (1/m) * total_cost;
 
 % =============================================================
 
