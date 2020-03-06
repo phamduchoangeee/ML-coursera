@@ -20,12 +20,12 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+total_cost = 0;
+for i = 1:m
+	total_cost = total_cost + (-y(i,1) * log(sigmoid(transpose(theta) .* X(i,:))) - (1 - y(i,1)) * log(1 - sigmoid(transpose(theta) .* X(i,:))) );
+endfor
 
-
-
-
-
-
+J = 1/m * total_cost;
 
 % =============================================================
 
