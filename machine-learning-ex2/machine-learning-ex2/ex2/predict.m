@@ -16,7 +16,7 @@ p = zeros(m, 1);
 %
 
 for i = 1:m
-	prediction = dot(transpose(theta), X(i,:))
+	prediction = dot(transpose(theta), X(i,:));
 	if prediction >= 0 
 		p(i,1) = 1;
 	else
@@ -24,7 +24,6 @@ for i = 1:m
 	end
 end
 
-p
 % =========================================================================
 
 
