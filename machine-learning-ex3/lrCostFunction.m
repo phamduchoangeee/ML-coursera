@@ -36,17 +36,19 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+cost_vector=0;
+h = sigmoid(X * theta);
+theta_regulartion = theta(2:end,:);
+theta_regulartion = [0; theta_regulartion];
+cost_vector = sum(-y.*log(h)) - sum((1 - y).* log(1-h));
 
-
-
-
-
-
-
+J = 1/m * cost_vector + lambda/(2*m) *(transpose(theta_regulartion)*theta_regulartion);
+grad = transpose(1/m * sum((h - y) .* X)) + lambda/m * theta_regulartion;
 
 
 % =============================================================
 
 grad = grad(:);
+
 
 end
