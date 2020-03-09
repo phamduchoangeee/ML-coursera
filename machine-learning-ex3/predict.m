@@ -9,6 +9,7 @@ num_labels = size(Theta2, 1);
 
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
+max_p = zeros(size(X, 1), 1);
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
@@ -21,13 +22,22 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Step 1: Layer 1 (Input Layer) => Layer 2 (Hidden Layer)
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
+% theta1_size = size(Theta1)
+% theta2_size = size(Theta2)
 
+hidden_layer = zeros(m, size(Theta1, 1));
+hidden_layer = sigmoid(X * transpose(Theta1));
 
-
-
-
-
+% Step 2: Layer 2 (Hidden Layer) => Layer 3 (Output Layer)
+% Add ones to the hidden matrix
+hidden_layer = [ones(m, 1) hidden_layer];
+output_layer = zeros(m, size(Theta2, 1));
+output_layer = sigmoid(hidden_layer * transpose(Theta2));
+[max_p , p] = max(output_layer,[], 2);
 
 % =========================================================================
 
