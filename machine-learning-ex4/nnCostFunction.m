@@ -63,15 +63,31 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+X = [ones(m,1),X];
+total = 0;
+% Theta1_size = size(Theta1)
+% Theta2_size = size(Theta2)
 
+%recode y
+y_recode = zeros(num_labels, m);
+for i= 1:m
+	y_recode(y(i,1), i) = 1;
+end	
 
+% calculus hidden layer
+hidden_layer = sigmoid(X * transpose(Theta1));
+% add ones to hidden layer
+hidden_layer = [ones(m,1),hidden_layer] ;
+% calculus output layer
+output_layer = sigmoid(hidden_layer * transpose(Theta2));
 
-
-
-
-
-
-
+for i = 1:m
+	part_1 = (-1)*sum(transpose(y_recode(:,i)).*log(output_layer(i,:)));
+	part_2 = (-1)*sum(transpose(1 - y_recode(:,i)).*log(1 - output_layer(i,:)));
+	total = total + part_1 + part_2;
+end
+% cost
+J = total/m;
 
 
 
