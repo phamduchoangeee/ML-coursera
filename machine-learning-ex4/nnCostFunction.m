@@ -88,11 +88,11 @@ for i = 1:m
 end
 % cost
 J = total/m;
+regularized_Theta_1 = Theta1(:,2:end);
+regularized_Theta_2 = Theta2(:,2:end);
+regularized_part = lambda/(2*m) * (sum(sum(regularized_Theta_1.*regularized_Theta_1)) + sum(sum(regularized_Theta_2.*regularized_Theta_2)));
 
-
-
-
-
+J = J + regularized_part
 
 
 
