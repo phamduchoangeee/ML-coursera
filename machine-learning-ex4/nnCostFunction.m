@@ -65,21 +65,23 @@ Theta2_grad = zeros(size(Theta2));
 
 X = [ones(m,1),X];
 total = 0;
-% Theta1_size = size(Theta1)
-% Theta2_size = size(Theta2)
+% Theta1_size : 25x401
+% Theta2_size : 10x26
 
-%recode y
+% recode y
 y_recode = zeros(num_labels, m);
 for i= 1:m
 	y_recode(y(i,1), i) = 1;
 end	
 
 % calculus hidden layer
-hidden_layer = sigmoid(X * transpose(Theta1));
+z_2 = X * transpose(Theta1);        % size: 5000x25
+hidden_layer = sigmoid(z_2);		
 % add ones to hidden layer
-hidden_layer = [ones(m,1),hidden_layer] ;
+hidden_layer = [ones(m,1),hidden_layer];    % size: 5000x26
 % calculus output layer
-output_layer = sigmoid(hidden_layer * transpose(Theta2));
+z_3 = hidden_layer * transpose(Theta2);     % size: 5000x10
+output_layer = sigmoid(z_3);
 
 for i = 1:m
 	part_1 = (-1)*sum(transpose(y_recode(:,i)).*log(output_layer(i,:)));
@@ -92,7 +94,23 @@ regularized_Theta_1 = Theta1(:,2:end);
 regularized_Theta_2 = Theta2(:,2:end);
 regularized_part = lambda/(2*m) * (sum(sum(regularized_Theta_1.*regularized_Theta_1)) + sum(sum(regularized_Theta_2.*regularized_Theta_2)));
 
-J = J + regularized_part
+J = J + regularized_part;
+
+% gradient
+delta_3 = output_layer - transpose(y_recode);    % size: 5000x10
+delta_2 = (delta_3 * Theta2) .* sigmoidGradient([ones(m,1),z_2]);  % size (temp) : 5000x26
+delta_2 = delta_2(:,2:end); % size: 5000x25
+
+% delta_3: 5000x10        hidden_layer: 5000x26
+triangle_2 = transpose(delta_3) * hidden_layer; % size: 10 x 26
+% delta_2: 5000x25        X: 5000x401
+triangle_1 = transpose(delta_2) * X; % size: 25x401
+
+Theta1_reg = [zeros(size(Theta1,1),1) , Theta1(:,2:end)];
+Theta2_reg = [zeros(size(Theta2,1),1) , Theta2(:,2:end)];
+
+Theta1_grad = triangle_1/m + lambda/m * (Theta1_reg);
+Theta2_grad = triangle_2/m + lambda/m * (Theta2_reg);
 
 
 
