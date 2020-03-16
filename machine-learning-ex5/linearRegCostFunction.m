@@ -19,10 +19,26 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+size_X = size(X);    % 12x2    
+size_y = size(y);	 % 12x1
+size_theta = size(theta); % 2x1
 
+% part 1: calculate Error Part
+error_part = 0;
+h = X*theta; % 12x1
+error_part = sum((h - y).^2);
 
+% part 2: calculate regularized Part
+regularized_part = 0;
+theta_reg = theta;
+theta_reg(1,1) = 0;
+regularized_part = sum(theta_reg.^2);
 
+J = 1/(2*m)* error_part + lambda/(2*m)*regularized_part;
 
+grad_main_part = 1/m * transpose(X) * (h-y);
+grad_reg_part  = lambda/m * theta_reg;
+grad = grad_main_part + grad_reg_part;
 
 
 
