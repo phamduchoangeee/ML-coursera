@@ -26,10 +26,10 @@ clear ; close all; clc
 %  complete the code in processEmail.m to produce a word indices vector
 %  for a given email.
 
-fprintf('\nPreprocessing sample email (emailSample1.txt)\n');
+fprintf('\nPreprocessing sample email (emailSample2.txt)\n');
 
 % Extract Features
-file_contents = readFile('emailSample1.txt');
+file_contents = readFile('emailSample2.txt');
 word_indices  = processEmail(file_contents);
 
 % Print Stats
@@ -45,10 +45,10 @@ pause;
 %  You should complete the code in emailFeatures.m to produce a feature
 %  vector for a given email.
 
-fprintf('\nExtracting features from sample email (emailSample1.txt)\n');
+fprintf('\nExtracting features from sample email (emailSample2.txt)\n');
 
 % Extract Features
-file_contents = readFile('emailSample1.txt');
+file_contents = readFile('emailSample2.txt');
 word_indices  = processEmail(file_contents);
 features      = emailFeatures(word_indices);
 
@@ -116,16 +116,16 @@ pause;
 
 %% =================== Part 6: Try Your Own Emails =====================
 %  Now that you've trained the spam classifier, you can use it on your own
-%  emails! In the starter code, we have included spamSample1.txt,
-%  spamSample2.txt, emailSample1.txt and emailSample2.txt as examples. 
+%  emails! In the starter code, we have included spamSample2.txt,
+%  spamSample2.txt, emailSample2.txt and emailSample2.txt as examples. 
 %  The following code reads in one of these emails and then uses your 
 %  learned SVM classifier to determine whether the email is Spam or 
 %  Not Spam
 
 % Set the file to be read in (change this to spamSample2.txt,
-% emailSample1.txt or emailSample2.txt to see different predictions on
+% emailSample2.txt or emailSample2.txt to see different predictions on
 % different emails types). Try your own emails as well!
-filename = 'spamSample1.txt';
+filename = 'spamSample2.txt';
 
 % Read and predict
 file_contents = readFile(filename);
