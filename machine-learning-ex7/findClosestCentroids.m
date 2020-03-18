@@ -21,12 +21,17 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+for i = 1:size(X,1)
+	dist = zeros(K,1);
+	x = X(i,:);
+	for j = 1:K
+		square_temp = (centroids(j,:) - x).^2;
+		dist(j,1) = sum(square_temp ,2);
+	end
+	[min_value, idx(i,1)] = min(dist);
+end
 
-
-
-
-
-
+% idx
 % =============================================================
 
 end
